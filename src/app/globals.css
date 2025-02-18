@@ -1,10 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --white: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,8 +15,464 @@
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+body,
+html {
+  height: 100%;
+  width: 100%;
+  font-family: "Outfit", serif;
+  /* cursor: url("../assets/cursor.png") auto; */
+  cursor: url("../../public/cursor.png"), auto;
+}
+
+.auth-container {
+  height: 100vh;
+  width: 100vw;
+  background: url("../assets/auth-bg.svg") no-repeat center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  width: 550px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  height: 850px;
+}
+
+.auth-header h1 {
+  color: white;
+  font-size: 2.1rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 6px 0;
+}
+
+.auth-header p {
+  font-size: 1rem;
+  color: white;
+  text-align: center;
+  font-weight: 300;
+  padding: 0 5rem;
+}
+
+@media screen and (max-width: 400px) {
+  .auth-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .auth-header p {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .auth-header p {
+    padding: 0;
+  }
+}
+
+.auth-form {
+  width: 100%;
+  padding: 1rem 2rem;
+}
+.auth-form-2 {
+  width: 100%;
+  padding: 0.5rem 2rem;
+}
+
+.auth-form > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form label {
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin: 6px 1px;
+  color: var(--white);
+}
+
+.auth-form input {
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px 10px 40px;
+  color: var(--white);
+  width: 100%;
+  outline: none;
+  position: relative;
+  transition: background 0.3s ease-in-out;
+  background: linear-gradient(to right, #346af7, #346af7) no-repeat;
+  background-size: 0% 2px;
+  background-position: 50% 100%;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.input-container.normal-container input {
+  padding: 10px 20px 10px 20px;
+}
+
+.auth-card.normal-container {
+  height: 520px;
+}
+
+.auth-form input::placeholder {
+  color: var(--white);
+}
+
+/* Cursor-following border effect */
+.auth-form input:hover,
+.auth-form input:focus {
+  background-size: 100% 2px;
+  transition: background-size 0.3s ease-in-out;
+}
+.input-container {
+  position: relative;
+}
+
+.input-container img.input-image {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.auth-button {
+  background: #346af7;
+  height: 40px;
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  border-radius: 3px;
+  color: var(--white);
+  font-weight: 500;
+}
+
+.divider-container {
+  padding: 10px 2rem;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.divider {
+  height: 1px;
+  background: #ededed;
+  width: 32%;
+  margin: 10px;
+}
+
+.auth-button-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 0 2rem;
+  margin-top: 2rem;
+}
+
+.auth-button-or {
+  display: flex;
+  align-items: center;
+  position: relative;
+  color: #fff;
+  width: 48%;
+  background-color: transparent;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.19);
+  padding: 6px;
+  gap: 9px;
+  height: 35px;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.check-input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid gray;
+  margin-top: 2px;
+  border-radius: 5px;
+  background-color: transparent;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Checked State - Blue Background */
+.check-input:checked {
+  background-color: #346af7;
+  border-color: #346af7;
+}
+
+/* Checkmark */
+.check-input:checked::before {
+  content: "✔";
+  font-size: 14px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 500px) {
+  .auth-card {
+    width: 90%;
+    height: 775px;
+  }
+
+  .auth-form,
+  .auth-form-2 {
+    padding: 1rem 0;
+  }
+
+  .divider-container {
+    padding: 10px 0;
+  }
+
+  .divider {
+    width: 25%;
+  }
+
+  .auth-button-container {
+    padding: 0 0rem;
+    margin-top: 0.5rem;
+  }
+
+  .flex.cursor-pointer > label,
+  .forgot-text {
+    font-size: 0.8rem;
+  }
+
+  .check-input {
+    margin-top: 0px;
+  }
+
+  .auth-container {
+    background: url("../assets/auth-bg-mobile.svg") no-repeat center center;
+    background-size: cover;
+  }
+}
+
+.gender-select .ant-select-selector {
+  border: 2px solid #346af7 !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  color: white !important;
+}
+
+.ant-select-selection-placeholder,
+.ant-select-arrow {
+  color: white !important;
+}
+
+.ant-picker {
+  background: transparent;
+  color: white;
+}
+
+.ant-picker:hover {
+  border: 1px solid #346af7;
+  background-color: transparent;
+}
+
+/* .input-container.normal-container input {
+  padding: 4px 0px !important;
+} */
+
+.ant-picker-input > input {
+  color: white;
+  padding: 4px 10px !important;
+}
+
+.ant-picker-input > input::placeholder,
+.ant-picker-suffix {
+  color: white !important;
+}
+
+.ant-picker-panel:hover .ant-picker {
+  background: transparent !important;
+}
+
+.balloon-container {
+  position: absolute;
+  bottom: -10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+}
+
+.balloon {
+  border-radius: 50%;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Balloon String */
+.string {
+  width: 2px;
+  height: 50px;
+  background-color: #555;
+  position: relative;
+  margin-top: -5px;
+  animation: sway 2s infinite ease-in-out alternate;
+}
+
+/* Swaying animation for the string */
+@keyframes sway {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+/* From Uiverse.io by mrhyddenn */
+.spinner {
+  font-size: 22px;
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+
+.spinner.center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.spinner .spinner-blade {
+  position: absolute;
+  left: 0.4629em;
+  bottom: 0;
+  width: 0.074em;
+  height: 0.2777em;
+  border-radius: 0.0555em;
+  background-color: transparent;
+  -webkit-transform-origin: center -0.2222em;
+  -ms-transform-origin: center -0.2222em;
+  transform-origin: center -0.2222em;
+  animation: spinner-fade9234 1s infinite linear;
+}
+
+.spinner .spinner-blade:nth-child(1) {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+.spinner .spinner-blade:nth-child(2) {
+  -webkit-animation-delay: 0.083s;
+  animation-delay: 0.083s;
+  -webkit-transform: rotate(30deg);
+  -ms-transform: rotate(30deg);
+  transform: rotate(30deg);
+}
+
+.spinner .spinner-blade:nth-child(3) {
+  -webkit-animation-delay: 0.166s;
+  animation-delay: 0.166s;
+  -webkit-transform: rotate(60deg);
+  -ms-transform: rotate(60deg);
+  transform: rotate(60deg);
+}
+
+.spinner .spinner-blade:nth-child(4) {
+  -webkit-animation-delay: 0.249s;
+  animation-delay: 0.249s;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.spinner .spinner-blade:nth-child(5) {
+  -webkit-animation-delay: 0.332s;
+  animation-delay: 0.332s;
+  -webkit-transform: rotate(120deg);
+  -ms-transform: rotate(120deg);
+  transform: rotate(120deg);
+}
+
+.spinner .spinner-blade:nth-child(6) {
+  -webkit-animation-delay: 0.415s;
+  animation-delay: 0.415s;
+  -webkit-transform: rotate(150deg);
+  -ms-transform: rotate(150deg);
+  transform: rotate(150deg);
+}
+
+.spinner .spinner-blade:nth-child(7) {
+  -webkit-animation-delay: 0.498s;
+  animation-delay: 0.498s;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.spinner .spinner-blade:nth-child(8) {
+  -webkit-animation-delay: 0.581s;
+  animation-delay: 0.581s;
+  -webkit-transform: rotate(210deg);
+  -ms-transform: rotate(210deg);
+  transform: rotate(210deg);
+}
+
+.spinner .spinner-blade:nth-child(9) {
+  -webkit-animation-delay: 0.664s;
+  animation-delay: 0.664s;
+  -webkit-transform: rotate(240deg);
+  -ms-transform: rotate(240deg);
+  transform: rotate(240deg);
+}
+
+.spinner .spinner-blade:nth-child(10) {
+  -webkit-animation-delay: 0.747s;
+  animation-delay: 0.747s;
+  -webkit-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+
+.spinner .spinner-blade:nth-child(11) {
+  -webkit-animation-delay: 0.83s;
+  animation-delay: 0.83s;
+  -webkit-transform: rotate(300deg);
+  -ms-transform: rotate(300deg);
+  transform: rotate(300deg);
+}
+
+.spinner .spinner-blade:nth-child(12) {
+  -webkit-animation-delay: 0.913s;
+  animation-delay: 0.913s;
+  -webkit-transform: rotate(330deg);
+  -ms-transform: rotate(330deg);
+  transform: rotate(330deg);
+}
+
+@keyframes spinner-fade9234 {
+  0% {
+    background-color: #ffffff;
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.disable-button {
+  background-color: #9ab5fb;
 }
