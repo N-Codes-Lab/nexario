@@ -4,10 +4,13 @@ import React, { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/firebase/firebase";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 function Page() {
   const [uId, setUId] = useState(null);
   const [loadingButton, setLoadingButton] = useState(false);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     phone: "",
   });
@@ -18,7 +21,8 @@ function Page() {
 
   const updatePhoneNumber = async () => {
     if (!formData.phone || !uId) {
-      alert("Please enter a phone number and ensure you are logged in.");
+      // alert("Please enter a phone number and ensure you are logged in.");
+      toast.error("Please enter a phone number and ensure you are logged in.");
       return;
     }
 
@@ -31,15 +35,19 @@ function Page() {
       });
 
       if (response.data.success) {
-        alert("Phone number updated successfully!");
+        // alert("Phone number updated successfully!");
+        toast.success("Phone number updated successfully!");
+
         localStorage.setItem("phone", formData.phone);
         router.push("/auth/verify");
       } else {
-        alert("Failed to update phone number.");
+        // alert("Failed to update phone number.");
+        toast.error("Failed to update phone number.");
       }
     } catch (error) {
       console.error("Error updating phone number:", error);
-      alert("An error occurred while updating the phone number.");
+      // alert("An error occurred while updating the phone number.");
+      toast.error("An error occurred while updating the phone number." + error);
     } finally {
       setLoadingButton(false);
     }
@@ -49,6 +57,9 @@ function Page() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUId(user.uid);
+      } else {
+        toast.error("Please login to continue.");
+        router.push("/auth/login");
       }
     });
 
@@ -57,6 +68,7 @@ function Page() {
 
   return (
     <div className="auth-container">
+      <Toaster />
       <div className="auth-card normal-container">
         <AuthHeader
           heading="Enter Your Phone Number"
@@ -72,6 +84,7 @@ function Page() {
                 placeholder="1234567890"
                 id="phone"
                 value={formData.phone}
+                maxLength={10}
                 onChange={handleInputChange}
               />
             </div>

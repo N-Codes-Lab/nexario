@@ -16,6 +16,7 @@ import {
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 function Page() {
   const [showPassword, setShowPassword] = useState(false);
@@ -41,7 +42,7 @@ function Page() {
         !formData.phone ||
         !formData.pin
       ) {
-        alert("Please fill all fields");
+        toast.error("Please fill all fields.");
         setLoadingButton(null); // Reset loading button
         return;
       } else {
@@ -55,7 +56,7 @@ function Page() {
             password
           );
           const uId = userCredential.user.uid;
-          console.log("User created successfully:", uId);
+          // console.log("User created successfully:", uId);
 
           // Step 2: Save user in MySQL database
           await axios.post("/api/auth/create_user", {
@@ -70,12 +71,13 @@ function Page() {
             auth_provider: "phone",
           });
 
-          alert("User created successfully!");
+          toast.success("Account created successfully!");
           localStorage.setItem("phone", formData.phone);
           router.push("/auth/verify");
           setLoadingButton(null); // Reset loading button
         } catch (error) {
           console.error("Error:", error.message);
+          toast.error("Failed to create user. " + error.message);
           alert("Failed to create user.");
           setLoadingButton(null); // Reset loading button
         } finally {
@@ -88,7 +90,7 @@ function Page() {
       try {
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
-        console.log("Google Sign-In Success:", user);
+        // console.log("Google Sign-In Success:", user);
 
         // Optionally, send user info to your backend
         const response = await axios.post("/api/auth/create_user", {
@@ -106,31 +108,30 @@ function Page() {
         // console.log("✅ Success:", response.data);
 
         if (response.data.message === "User created") {
+          // alert("User created successfully!");
+          toast.success("Account created successfully!");
           router.push("/auth/phone");
-          alert("User created successfully!");
         } else {
         }
-
-        alert("Google sign-in successful!");
       } catch (error) {
         console.error("Google Sign-In Error:", error.message);
+        toast.error("Failed to sign in with Google. " + error.message);
         console.error(
           "❌ Error:",
           error.response ? error.response.data : error.message
         );
-        alert("Failed to sign in with Google.");
       } finally {
         setLoadingButton(null);
       }
       // Reset loading button
     } else {
-      console.log("Facebook button clicked");
+      // console.log("Facebook button clicked");
 
       try {
         // Step 1: Sign in with Facebook
         const result = await signInWithPopup(auth, facebookProvider);
         const user = result.user;
-        console.log("Facebook Sign-In Success:", user);
+        // console.log("Facebook Sign-In Success:", user);
 
         // Step 2: Optionally, send user info to your backend (MySQL Database)
         const response = await axios.post("/api/auth/create_user", {
@@ -146,18 +147,19 @@ function Page() {
         });
 
         if (response.data.message === "User created") {
+          toast.success("Account created successfully!");
           router.push("/auth/phone"); // Redirect to phone verification or another step
-          alert("User created successfully!");
         } else {
-          alert("Error: Could not create user in the system.");
+          // alert("Error: Could not create user in the system.");
         }
       } catch (error) {
         console.error("Facebook Sign-In Error:", error.message);
+        toast.error("Failed to sign in with Facebook. " + error.message);
         console.error(
           "❌ Error:",
           error.response ? error.response.data : error.message
         );
-        alert("Failed to sign in with Facebook.");
+        // alert("Failed to sign in with Facebook.");
       } finally {
         setLoadingButton(null); // Reset loading button
       }
@@ -168,6 +170,7 @@ function Page() {
 
   return (
     <div className="auth-container">
+      <Toaster />
       <div className="auth-card">
         <AuthHeader
           heading="Get Started Now"

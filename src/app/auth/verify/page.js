@@ -2,6 +2,7 @@
 import AuthHeader from "@/app/components/auth/AuthHeader";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 function Page() {
   const [phone, setPhone] = useState("");
@@ -24,7 +25,7 @@ function Page() {
     const newOtp = Math.floor(1000 + Math.random() * 9000).toString();
     setGeneratedOtp(newOtp);
     console.log("Generated OTP:", newOtp);
-
+    toast.success("OTP sent successfully to your phone.");
     // Placeholder for OTP sending logic
     // sendOtpToUser(phone, newOtp);
   };
@@ -34,21 +35,25 @@ function Page() {
 
     if (!otp) {
       setLoadingButton(false);
-      alert("Please enter the OTP sent to your phone.");
+      // alert("Please enter the OTP sent to your phone.");
+      toast.error("Please enter the OTP sent to your phone.");
 
       return;
     }
     if (otp === generatedOtp) {
       setLoadingButton(false);
+      toast.success("OTP verified successfully.");
       router.push("/auth/profile-setup");
     } else {
       setLoadingButton(false);
-      alert("Invalid OTP. Please try again.");
+      // alert("Invalid OTP. Please try again.");
+      toast.error("Invalid OTP. Please try again.");
     }
   };
 
   return (
     <div className="auth-container">
+      <Toaster />
       <div className="auth-card normal-container">
         <AuthHeader
           heading="Verify Your Account"
@@ -87,6 +92,15 @@ function Page() {
               "Verify"
             )}
           </button>
+          <p className="text-center mt-4 text-white forgot-text">
+            <a
+              href="#"
+              onClick={generateAndLogOtp}
+              className="text-[#346af7] font-medium"
+            >
+              Resend OTP
+            </a>
+          </p>
         </div>
       </div>
     </div>

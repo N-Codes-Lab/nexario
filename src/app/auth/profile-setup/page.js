@@ -5,6 +5,7 @@ import { DatePicker, Select } from "antd";
 import axios from "axios";
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const { Option } = Select;
 
@@ -17,7 +18,7 @@ function Page() {
 
   const updateDetails = async () => {
     if (!date || !selectedOption || !uId) {
-      alert("Please enter dob and gender and ensure you are logged in.");
+      toast.error("Please fill all the fields.");
       return;
     }
 
@@ -31,13 +32,16 @@ function Page() {
       });
 
       if (response.data.success) {
-        alert("Details updated successfully!");
+        // alert("Details updated successfully!");
+        toast.success("Details updated successfully!");
       } else {
-        alert("Failed to update details.");
+        // alert("Failed to update details.");
+        toast.error("Failed to update details.");
       }
     } catch (error) {
       console.error("Error updating phone number:", error);
-      alert("An error occurred while updating the phone number.");
+      // alert("An error occurred while updating the phone number.");
+      toast.error("An error occurred while updating the phone number." + error);
     } finally {
       setLoadingButton(false);
     }
@@ -47,6 +51,8 @@ function Page() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUId(user.uid);
+      } else {
+        toast.error("User not found.");
       }
     });
 
@@ -54,6 +60,7 @@ function Page() {
   }, []);
   return (
     <div className="auth-container relative overflow-hidden">
+      <Toaster />
       <div className="auth-card normal-container">
         <AuthHeader
           heading="Tell Us About Yourself"
