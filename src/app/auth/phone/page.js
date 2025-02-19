@@ -32,6 +32,8 @@ function Page() {
 
       if (response.data.success) {
         alert("Phone number updated successfully!");
+        localStorage.setItem("phone", formData.phone);
+        router.push("/auth/verify");
       } else {
         alert("Failed to update phone number.");
       }

@@ -71,6 +71,8 @@ function Page() {
           });
 
           alert("User created successfully!");
+          localStorage.setItem("phone", formData.phone);
+          router.push("/auth/verify");
           setLoadingButton(null); // Reset loading button
         } catch (error) {
           console.error("Error:", error.message);
