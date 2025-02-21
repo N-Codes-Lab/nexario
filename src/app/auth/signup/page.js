@@ -17,6 +17,7 @@ import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 function Page() {
   const [showPassword, setShowPassword] = useState(false);
@@ -78,7 +79,7 @@ function Page() {
         } catch (error) {
           console.error("Error:", error.message);
           toast.error("Failed to create user. " + error.message);
-          alert("Failed to create user.");
+          // alert("Failed to create user.");
           setLoadingButton(null); // Reset loading button
         } finally {
           setLoadingButton(null);
@@ -290,9 +291,9 @@ function Page() {
           </button>
           <p className="text-center mt-4 text-white forgot-text">
             Already have an account?{" "}
-            <a href="#" className="text-[#346af7] font-medium">
+            <Link className="text-[#346af7] font-medium" href="/auth/login">
               Sign in
-            </a>
+            </Link>
           </p>
         </div>
 

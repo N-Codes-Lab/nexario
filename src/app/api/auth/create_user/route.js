@@ -30,6 +30,24 @@ export async function POST(req) {
       [uId]
     );
 
+    const [alreadyExists] = await db.execute(
+      `SELECT id FROM users WHERE phone = ? LIMIT 1`,
+      [phone]
+    );
+
+    if (alreadyExists.length > 0) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "User with this phone number already exists",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
     if (existingUser.length > 0) {
       await db.execute(
         `UPDATE users SET last_signed_in = CURRENT_TIMESTAMP WHERE uId = ?`,

@@ -4,6 +4,7 @@ import { auth } from "@/app/firebase/firebase";
 import { DatePicker, Select } from "antd";
 import axios from "axios";
 import { onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -12,7 +13,7 @@ const { Option } = Select;
 function Page() {
   const [date, setDate] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
-
+  const router = useRouter();
   const [uId, setUId] = useState(null);
   const [loadingButton, setLoadingButton] = useState(false);
 
@@ -34,6 +35,7 @@ function Page() {
       if (response.data.success) {
         // alert("Details updated successfully!");
         toast.success("Details updated successfully!");
+        router.push("/auth/avatar");
       } else {
         // alert("Failed to update details.");
         toast.error("Failed to update details.");

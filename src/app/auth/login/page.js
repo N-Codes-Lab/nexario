@@ -14,6 +14,7 @@ import {
 } from "@/app/firebase/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import axios from "axios";
+import Link from "next/link";
 function page() {
   const [showPassword, setShowPassword] = useState(false);
   const [loadingButton, setLoadingButton] = useState(null);
@@ -225,10 +226,11 @@ function page() {
               Remember me
             </label>
           </div>
-          <a href="#" className="text-white forgot-text">
+          <Link href="/auth/forgot-pin" className="text-white forgot-text">
+            {" "}
             Forgot Pin?
             <span className="text-[#346af7] font-medium"> Change Now</span>
-          </a>
+          </Link>
         </div>
         <div className="auth-form">
           {" "}
@@ -260,9 +262,9 @@ function page() {
           </button>
           <p className="text-center mt-4 text-white forgot-text">
             Don't have an account?{" "}
-            <a href="#" className="text-[#346af7] font-medium">
+            <Link href="/auth/signup" className="text-[#346af7] font-medium">
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
 
