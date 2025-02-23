@@ -8,8 +8,9 @@ function Page() {
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [loadingButton, setLoadingButton] = useState(false);
-
   const [generatedOtp, setGeneratedOtp] = useState(null);
+  const [resendDisabled, setResendDisabled] = useState(true);
+  const [timer, setTimer] = useState(30);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,26 +19,38 @@ function Page() {
       setPhone(storedPhone);
       generateAndLogOtp();
     }
+    startResendTimer();
   }, []);
 
-  // Function to generate a random 4-digit OTP
+  const startResendTimer = () => {
+    setResendDisabled(true);
+    setTimer(30);
+    const countdown = setInterval(() => {
+      setTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(countdown);
+          setResendDisabled(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
   const generateAndLogOtp = () => {
     const newOtp = Math.floor(1000 + Math.random() * 9000).toString();
     setGeneratedOtp(newOtp);
     console.log("Generated OTP:", newOtp);
     toast.success("OTP sent successfully to your phone.");
-    // Placeholder for OTP sending logic
-    // sendOtpToUser(phone, newOtp);
+    toast.success("OTP: " + newOtp);
+    startResendTimer();
   };
 
   const handleVerifyOtp = () => {
     setLoadingButton(true);
-
     if (!otp) {
       setLoadingButton(false);
-      // alert("Please enter the OTP sent to your phone.");
       toast.error("Please enter the OTP sent to your phone.");
-
       return;
     }
     if (otp === generatedOtp) {
@@ -46,7 +59,6 @@ function Page() {
       router.push("/auth/profile-setup");
     } else {
       setLoadingButton(false);
-      // alert("Invalid OTP. Please try again.");
       toast.error("Invalid OTP. Please try again.");
     }
   };
@@ -59,7 +71,6 @@ function Page() {
           heading="Verify Your Account"
           subHeading="Enter the OTP sent to your email or phone to confirm your account and start your journey with Nexario."
         />
-
         <div className="auth-form">
           <div className="mb-0">
             <label htmlFor="otp">Enter OTP</label>
@@ -93,13 +104,15 @@ function Page() {
             )}
           </button>
           <p className="text-center mt-4 text-white forgot-text">
-            <a
-              href="#"
+            <button
               onClick={generateAndLogOtp}
-              className="text-[#346af7] font-medium"
+              disabled={resendDisabled}
+              className={`text-[#346af7] font-medium ${
+                resendDisabled ? "cursor-not-allowed opacity-50" : ""
+              }`}
             >
-              Resend OTP
-            </a>
+              {resendDisabled ? `Resend OTP in ${timer}s` : "Resend OTP"}
+            </button>
           </p>
         </div>
       </div>
