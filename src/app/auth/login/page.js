@@ -15,6 +15,7 @@ import {
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
 function page() {
   const [showPassword, setShowPassword] = useState(false);
   const [loadingButton, setLoadingButton] = useState(null);
@@ -29,6 +30,8 @@ function page() {
   };
 
   const handleButtonClick = async (buttonType) => {
+    const audio = new Audio("/btn_audio.wav"); // Path from public folder
+    audio.play().catch((err) => console.error("Audio play failed:", err));
     setLoadingButton(buttonType); // Set loading button
     if (buttonType === "login") {
       console.log(formData);
@@ -92,15 +95,17 @@ function page() {
           auth_pin: "",
           phone: "not-selected",
           gender: "not-selected",
-          dob: new Date().toISOString(),
+          dob: new Date().toISOString().split("T")[0],
         });
 
         // console.log("✅ Success:", response.data);
 
         if (response.data.message === "User created") {
+          // alert("User created successfully!");
+          toast.success("User created successfully!");
           router.push("/auth/phone");
-          alert("User created successfully!");
         } else {
+          toast.success("Login successful!");
         }
 
         alert("Google sign-in successful!");
@@ -110,7 +115,8 @@ function page() {
           "❌ Error:",
           error.response ? error.response.data : error.message
         );
-        alert("Failed to sign in with Google.");
+        // alert("Failed to sign in with Google.");
+        toast.error("Failed to sign in with Google." + error.message);
       } finally {
         setLoadingButton(null);
       }
@@ -134,22 +140,25 @@ function page() {
           auth_pin: "", // You can choose not to use this for Facebook login
           phone: "not-selected", // Facebook doesn't provide a phone number by default
           gender: "not-selected", // You can handle gender manually or with Facebook data if you want
-          dob: new Date().toISOString(), // Use today's date or any available data
+          dob: new Date().toISOString().split("T")[0], // Use today's date or any available data
         });
 
         if (response.data.message === "User created") {
+          toast.success("User created successfully!");
           router.push("/auth/phone"); // Redirect to phone verification or another step
-          alert("User created successfully!");
+          // alert("User created successfully!");
         } else {
-          alert("Error: Could not create user in the system.");
+          // alert("Error: Could not create user in the system.");
+          toast.success("Login successful!");
         }
       } catch (error) {
         console.error("Facebook Sign-In Error:", error.message);
+        toast.error("Failed to sign in with Facebook." + error.message);
         console.error(
           "❌ Error:",
           error.response ? error.response.data : error.message
         );
-        alert("Failed to sign in with Facebook.");
+        // alert("Failed to sign in with Facebook.");
       } finally {
         setLoadingButton(null); // Reset loading button
       }
@@ -165,9 +174,9 @@ function page() {
           heading="Welcome Back"
           subHeading="Sign in to play, win, and cash out!"
         />
-
+        <Toaster />
         <div className="auth-form">
-          <div className="mb-4">
+          <div className="mb-4 animate__animated animate__fadeInUp">
             <label htmlFor="phone">Phone number</label>
             <div className="flex input-container">
               <Image
@@ -186,7 +195,7 @@ function page() {
               />
             </div>
           </div>
-          <div className="mb-2">
+          <div className="mb-2 animate__animated animate__fadeInUp">
             <label htmlFor="pin">Enter Your account pin</label>
             <div className="flex input-container">
               <Image
@@ -207,14 +216,14 @@ function page() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3 text-white transition"
+                className="absolute right-3 top-3 text-white transition animate__animated animate__fadeInUp"
               >
                 {showPassword ? <FiEye size={20} /> : <FiEyeOff size={20} />}
               </button>
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center mb-4 auth-form-2">
+        <div className="flex justify-between items-center mb-4 auth-form-2 animate__animated animate__fadeInUp">
           <div className="flex cursor-pointer">
             <input
               className="check-input"
@@ -232,10 +241,10 @@ function page() {
             <span className="text-[#346af7] font-medium"> Change Now</span>
           </Link>
         </div>
-        <div className="auth-form">
+        <div className="auth-form animate__animated animate__fadeInUp">
           {" "}
           <button
-            className={`auth-button ${
+            className={`auth-button animate__animated animate__fadeInUp ${
               loadingButton === "login" ? "disable-button" : ""
             }`}
             disabled={loadingButton !== null}
@@ -260,7 +269,7 @@ function page() {
               "Sign In"
             )}
           </button>
-          <p className="text-center mt-4 text-white forgot-text">
+          <p className="text-center  mt-[40px] text-white forgot-text animate__animated animate__fadeInUp">
             Don't have an account?{" "}
             <Link href="/auth/signup" className="text-[#346af7] font-medium">
               Sign up
@@ -268,15 +277,15 @@ function page() {
           </p>
         </div>
 
-        <div className="divider-container">
+        <div className="divider-container animate__animated animate__fadeInUp">
           <div className="divider"></div>
           <p className="text-white">or continue with</p>
           <div className="divider"></div>
         </div>
 
-        <div className="auth-button-container flex gap-4">
+        <div className="auth-button-container flex gap-4 animate__animated animate__fadeInUp">
           <button
-            className="auth-button-or"
+            className="auth-button-or animate__animated animate__fadeInUp"
             disabled={loadingButton !== null}
             onClick={() => handleButtonClick("google")}
           >
@@ -303,7 +312,7 @@ function page() {
             )}
           </button>
           <button
-            className="auth-button-or"
+            className="auth-button-or animate__animated animate__fadeInUp"
             disabled={loadingButton !== null}
             onClick={() => handleButtonClick("facebook")}
           >

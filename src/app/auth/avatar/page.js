@@ -55,6 +55,8 @@ function Page() {
   };
 
   const saveAvatar = async () => {
+    const audio = new Audio("/btn_audio.wav"); // Path from public folder
+    audio.play().catch((err) => console.error("Audio play failed:", err));
     if (!selectedAvatar) {
       toast.error("Please select an avatar before confirming.");
       return;
@@ -87,18 +89,18 @@ function Page() {
   return (
     <div className="auth-container">
       <Toaster />
-      <div className="auth-card">
+      <div className="auth-card avatar-container">
         <AuthHeader
           heading="Choose Your Avatar"
           subHeading="Pick a look that represents you in the Nexario community."
         />
 
         <div className="auth-form">
-          <div className="flex avatars-container">
+          <div className="flex avatars-container animate__animated animate__fadeInUp">
             {avatars.map((avatar) => (
               <div
                 key={avatar.id}
-                className={`avatar ${
+                className={`avatar animate__animated animate__fadeInUp ${
                   selectedAvatar === avatar.avatar_url ? "selected" : ""
                 }`}
                 onClick={() => handleAvatarClick(avatar.avatar_url)}
@@ -131,7 +133,9 @@ function Page() {
         ) : (
           <div className="auth-form">
             <button
-              className={`auth-button ${loadingButton ? "disable-button" : ""}`}
+              className={`auth-button animate__animated animate__fadeInUp ${
+                loadingButton ? "disable-button" : ""
+              }`}
               onClick={saveAvatar}
               disabled={loadingButton}
             >

@@ -18,7 +18,6 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
-
 function Page() {
   const [showPassword, setShowPassword] = useState(false);
   const [loadingButton, setLoadingButton] = useState(null); // Track which button is clicked
@@ -29,12 +28,13 @@ function Page() {
     phone: "",
     pin: "",
   });
-
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   const handleButtonClick = async (buttonType) => {
+    const audio = new Audio("/btn_audio.wav"); // Path from public folder
+    audio.play().catch((err) => console.error("Audio play failed:", err));
     setLoadingButton(buttonType); // Set loading button
     if (buttonType === "signup") {
       if (
@@ -67,7 +67,7 @@ function Page() {
             email: formData.email,
             auth_pin: formData.pin,
             avatar: "not-selected",
-            dob: new Date().toISOString(),
+            dob: new Date().toISOString().split("T")[0],
             gender: "not-selected",
             auth_provider: "phone",
           });
@@ -103,7 +103,7 @@ function Page() {
           auth_pin: "",
           phone: "not-selected",
           gender: "not-selected",
-          dob: new Date().toISOString(),
+          dob: new Date().toISOString().split("T")[0],
         });
 
         // console.log("✅ Success:", response.data);
@@ -113,6 +113,7 @@ function Page() {
           toast.success("Account created successfully!");
           router.push("/auth/phone");
         } else {
+          toast.success("login successfully!");
         }
       } catch (error) {
         console.error("Google Sign-In Error:", error.message);
@@ -144,14 +145,14 @@ function Page() {
           auth_pin: "", // You can choose not to use this for Facebook login
           phone: "not-selected", // Facebook doesn't provide a phone number by default
           gender: "not-selected", // You can handle gender manually or with Facebook data if you want
-          dob: new Date().toISOString(), // Use today's date or any available data
+          dob: new Date().toISOString().split("T")[0], // Use today's date or any available data
         });
 
         if (response.data.message === "User created") {
           toast.success("Account created successfully!");
           router.push("/auth/phone"); // Redirect to phone verification or another step
         } else {
-          // alert("Error: Could not create user in the system.");
+          toast.success("login successfully!");
         }
       } catch (error) {
         console.error("Facebook Sign-In Error:", error.message);
@@ -178,8 +179,8 @@ function Page() {
           subHeading="Sign up to play, win, and cash out with ease!"
         />
 
-        <div className="auth-form">
-          <div className="mb-4">
+        <div className="auth-form animate__animated animate__fadeInUp">
+          <div className="mb-4 animate__animated animate__fadeInUp">
             <label htmlFor="full_name">Enter your full name</label>
             <div className="flex input-container">
               <Image
@@ -197,7 +198,7 @@ function Page() {
               />
             </div>
           </div>
-          <div className="mb-4">
+          <div className="mb-4 animate__animated animate__fadeInUp">
             <label htmlFor="email">Email</label>
             <div className="flex input-container">
               <Image
@@ -215,7 +216,7 @@ function Page() {
               />
             </div>
           </div>
-          <div className="mb-4">
+          <div className="mb-4 animate__animated animate__fadeInUp">
             <label htmlFor="phone">Phone number</label>
             <div className="flex input-container">
               <Image
@@ -234,7 +235,7 @@ function Page() {
               />
             </div>
           </div>
-          <div className="mb-2">
+          <div className="mb-2 animate__animated animate__fadeInUp">
             <label htmlFor="pin">Enter Your account pin</label>
             <div className="flex input-container">
               <Image
@@ -254,7 +255,7 @@ function Page() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3 text-white transition"
+                className="absolute right-3 top-3 text-white transition animate__animated animate__fadeInUp"
               >
                 {showPassword ? <FiEye size={20} /> : <FiEyeOff size={20} />}
               </button>
@@ -262,9 +263,9 @@ function Page() {
           </div>
         </div>
 
-        <div className="auth-form">
+        <div className="auth-form animate__animated animate__fadeInUp">
           <button
-            className={`auth-button ${
+            className={`auth-button  ${
               loadingButton === "signup" ? "disable-button" : ""
             }`}
             disabled={loadingButton !== null}
@@ -289,7 +290,7 @@ function Page() {
               "Sign Up"
             )}
           </button>
-          <p className="text-center mt-4 text-white forgot-text">
+          <p className="text-center mt-[40px] text-white forgot-text">
             Already have an account?{" "}
             <Link className="text-[#346af7] font-medium" href="/auth/login">
               Sign in
@@ -297,15 +298,15 @@ function Page() {
           </p>
         </div>
 
-        <div className="divider-container">
+        <div className="divider-container animate__animated animate__fadeInUp">
           <div className="divider"></div>
           <p className="text-white">or continue with</p>
           <div className="divider"></div>
         </div>
 
-        <div className="auth-button-container flex gap-4">
+        <div className="auth-button-container animate__animated animate__fadeInUp flex gap-4">
           <button
-            className="auth-button-or"
+            className="auth-button-or animate__animated animate__fadeInUp"
             disabled={loadingButton !== null}
             onClick={() => handleButtonClick("google")}
           >
@@ -332,7 +333,7 @@ function Page() {
             )}
           </button>
           <button
-            className="auth-button-or"
+            className="auth-button-or animate__animated animate__fadeInUp "
             disabled={loadingButton !== null}
             onClick={() => handleButtonClick("facebook")}
           >

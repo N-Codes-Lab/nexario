@@ -55,6 +55,7 @@ function Page() {
         setUId(user.uid);
       } else {
         toast.error("User not found.");
+        router.push("/auth/login");
       }
     });
 
@@ -71,7 +72,7 @@ function Page() {
 
         <div className="auth-form">
           {/* Date of Birth */}
-          <div className="mb-0">
+          <div className="mb-0 animate__animated animate__fadeInUp">
             <label htmlFor="email">Date of Birth</label>
             <div className="flex input-container normal-container">
               <DatePicker
@@ -83,7 +84,7 @@ function Page() {
           </div>
 
           {/* Gender Selection */}
-          <div className="mb-0">
+          <div className="mb-0 animate__animated animate__fadeInUp">
             <label htmlFor="gender">Select your gender</label>
             <div className="flex input-container normal-container">
               <Select
@@ -99,12 +100,12 @@ function Page() {
               </Select>
             </div>
           </div>
-        </div>
-
-        <div className="auth-form">
-          <p className="text-center mb-2 text-[#A1A1A1] forgot-text">
+          <p className="text-center mt-4 text-[#A1A1A1] forgot-text">
             Provide the DOB and gender to set up your profile
           </p>
+        </div>
+
+        <div className="auth-form animate__animated animate__fadeInUp">
           <button
             className={`auth-button ${loadingButton ? "disable-button" : ""}`}
             onClick={updateDetails}

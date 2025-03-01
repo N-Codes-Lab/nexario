@@ -20,6 +20,8 @@ function Page() {
   };
 
   const updatePhoneNumber = async () => {
+    const audio = new Audio("/btn_audio.wav"); // Path from public folder
+    audio.play().catch((err) => console.error("Audio play failed:", err));
     if (!formData.phone || !uId) {
       // alert("Please enter a phone number and ensure you are logged in.");
       toast.error("Please enter a phone number and ensure you are logged in.");
@@ -69,14 +71,14 @@ function Page() {
   return (
     <div className="auth-container">
       <Toaster />
-      <div className="auth-card normal-container">
+      <div className="auth-card  avatar-container">
         <AuthHeader
           heading="Enter Your Phone Number"
           subHeading="Enter your phone number to update it."
         />
 
         <div className="auth-form">
-          <div className="mb-0">
+          <div className="mb-0 animate__animated animate__fadeInUp">
             <label htmlFor="phone">Enter Phone Number</label>
             <div className="flex input-container normal-container">
               <input
@@ -90,9 +92,11 @@ function Page() {
             </div>
           </div>
         </div>
-        <div className="auth-form">
+        <div className="auth-form animate__animated animate__fadeInUp">
           <button
-            className={`auth-button ${loadingButton ? "disable-button" : ""}`}
+            className={`auth-button mt-6 animate__animated animate__fadeInUp ${
+              loadingButton ? "disable-button" : ""
+            }`}
             onClick={updatePhoneNumber}
           >
             {loadingButton ? (

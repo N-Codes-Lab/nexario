@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function AuthHeader({ heading, subHeading }) {
   return (
-    <div className="auth-header w-full ">
+    <div className="auth-header w-full animate__animated animate__fadeInUp">
       <div className="flex justify-center items-center my-8">
         <Image src={logo} alt="Logo" width={50} height={50} />
       </div>

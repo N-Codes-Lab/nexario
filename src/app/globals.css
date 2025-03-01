@@ -21,13 +21,13 @@ html {
   width: 100%;
   font-family: "Outfit", serif;
   /* cursor: url("../assets/cursor.png") auto; */
-  cursor: url("../../public/cursor.png"), auto;
+  cursor: url("/cursor.png"), auto;
 }
 
 .auth-container {
-  height: 100vh;
-  width: 100vw;
-  background: url("../assets/auth-bg.svg") no-repeat center center;
+  height: 110vh;
+  width: 100%;
+  background: url("/auth-bg.svg") no-repeat center center;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -43,6 +43,10 @@ html {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.09);
   height: 850px;
+}
+
+.auth-card.avatar-container {
+  height: fit-content;
 }
 
 .auth-header h1 {
@@ -81,6 +85,11 @@ html {
   width: 100%;
   padding: 1rem 2rem;
 }
+
+.auth-card.normal-container .auth-form {
+  padding: 0rem 2rem;
+}
+
 .auth-form-2 {
   width: 100%;
   padding: 0.5rem 2rem;
@@ -92,10 +101,14 @@ html {
 }
 
 .auth-form label {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 400;
   margin: 6px 1px;
   color: var(--white);
+  opacity: 0.7;
+}
+.auth-card label {
+  font-size: 0.9rem;
 }
 
 .auth-form input {
@@ -119,11 +132,12 @@ html {
 }
 
 .auth-card.normal-container {
-  height: 520px;
+  height: 540px;
 }
 
 .auth-form input::placeholder {
   color: var(--white);
+  font-size: 0.9rem;
 }
 
 /* Cursor-following border effect */
@@ -151,6 +165,7 @@ html {
   border-radius: 3px;
   color: var(--white);
   font-weight: 500;
+  font-size: 0.9rem;
 }
 
 .divider-container {
@@ -172,7 +187,7 @@ html {
   gap: 10px;
   align-items: center;
   padding: 0 2rem;
-  margin-top: 2rem;
+  margin-top: 15px;
 }
 
 .auth-button-or {
@@ -196,7 +211,6 @@ html {
   width: 20px;
   height: 20px;
   border: 2px solid gray;
-  margin-top: 2px;
   border-radius: 5px;
   background-color: transparent;
   position: relative;
@@ -221,6 +235,9 @@ html {
   transform: translate(-50%, -50%);
 }
 
+.forgot-text {
+  font-size: 0.9rem;
+}
 @media screen and (max-width: 500px) {
   .auth-card {
     width: 90%;
@@ -255,7 +272,7 @@ html {
   }
 
   .auth-container {
-    background: url("../assets/auth-bg-mobile.svg") no-repeat center center;
+    background: url("/auth-bg-mobile.svg") no-repeat center center;
     background-size: cover;
   }
 }
@@ -512,4 +529,11 @@ html {
     width: 58px;
     height: 58px;
   }
+}
+
+.ant-select-selection-placeholder,
+.ant-select-selection-item,
+.ant-select-item-option-content,
+.ant-picker-input > input {
+  font-family: "Outfit", serif !important;
 }

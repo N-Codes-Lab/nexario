@@ -53,6 +53,8 @@ function ForgotPinPage() {
 
   // Function to verify OTP and update auth_pin
   const verifyOtpAndUpdatePin = async () => {
+    const audio = new Audio("/btn_audio.wav"); // Path from public folder
+    audio.play().catch((err) => console.error("Audio play failed:", err));
     if (otp.length !== 4) {
       toast.error("OTP must be 4 digits");
       return;
@@ -101,11 +103,11 @@ function ForgotPinPage() {
           subHeading="Enter your phone number."
         />
 
-        <div className="auth-form">
+        <div className="auth-form ">
           {!userExists ? (
             <>
               <label htmlFor="phone">Phone Number</label>
-              <div className="flex input-container normal-container">
+              <div className="flex input-container normal-container animate__animated animate__fadeInUp">
                 <input
                   type="tel"
                   maxLength={10}
@@ -115,11 +117,11 @@ function ForgotPinPage() {
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
-              <p className="text-center mt-3 text-[#A1A1A1] forgot-text">
+              <p className="text-center mt-3 text-[#A1A1A1] forgot-text animate__animated animate__fadeInUp">
                 Provide the phone number linked to your account
               </p>
               <button
-                className={`auth-button mt-3 ${
+                className={`auth-button mt-3 animate__animated animate__fadeInUp ${
                   loadingButton ? "disable-button" : ""
                 }`}
                 onClick={checkUserExists}
@@ -137,7 +139,7 @@ function ForgotPinPage() {
           ) : (
             <>
               <label htmlFor="otp">OTP</label>
-              <div className="flex input-container normal-container mb-2">
+              <div className="flex input-container normal-container mb-2 animate__animated animate__fadeInUp">
                 <input
                   type="tel"
                   maxLength={4}
@@ -149,7 +151,7 @@ function ForgotPinPage() {
               </div>
 
               <label htmlFor="pin">New Pin</label>
-              <div className="flex input-container normal-container mb-2">
+              <div className="flex input-container normal-container mb-2 animate__animated animate__fadeInUp">
                 <input
                   type="tel"
                   maxLength={4}
@@ -161,7 +163,7 @@ function ForgotPinPage() {
               </div>
 
               <button
-                className={`auth-button mt-4 ${
+                className={`auth-button mt-4 animate__animated animate__fadeInUp ${
                   loadingButton ? "disable-button" : ""
                 }`}
                 onClick={verifyOtpAndUpdatePin}

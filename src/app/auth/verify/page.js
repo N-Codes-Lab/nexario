@@ -47,6 +47,8 @@ function Page() {
   };
 
   const handleVerifyOtp = () => {
+    const audio = new Audio("/btn_audio.wav"); // Path from public folder
+    audio.play().catch((err) => console.error("Audio play failed:", err));
     setLoadingButton(true);
     if (!otp) {
       setLoadingButton(false);
@@ -72,7 +74,7 @@ function Page() {
           subHeading="Enter the OTP sent to your email or phone to confirm your account and start your journey with Nexario."
         />
         <div className="auth-form">
-          <div className="mb-0">
+          <div className="mb-0 animate__animated animate__fadeInUp">
             <label htmlFor="otp">Enter OTP</label>
             <div className="flex input-container normal-container">
               <input
@@ -84,14 +86,16 @@ function Page() {
               />
             </div>
           </div>
-        </div>
-
-        <div className="auth-form">
-          <p className="text-center mb-4 text-[#A1A1A1] forgot-text">
+          <p className="text-center mt-4 text-[#A1A1A1] forgot-text">
             Enter the OTP received on your entered email or phone number
           </p>
+        </div>
+
+        <div className="auth-form animate__animated animate__fadeInUp">
           <button
-            className={`auth-button ${loadingButton ? "disable-button" : ""}`}
+            className={`auth-button animate__animated animate__fadeInUp ${
+              loadingButton ? "disable-button" : ""
+            }`}
             onClick={handleVerifyOtp}
           >
             {loadingButton ? (
@@ -103,7 +107,7 @@ function Page() {
               "Verify"
             )}
           </button>
-          <p className="text-center mt-4 text-white forgot-text">
+          <p className="text-center animate__animated animate__fadeInUp mt-4 text-white forgot-text">
             <button
               onClick={generateAndLogOtp}
               disabled={resendDisabled}
