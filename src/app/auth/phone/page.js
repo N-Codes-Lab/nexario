@@ -71,7 +71,7 @@ function Page() {
   return (
     <div className="auth-container">
       <Toaster />
-      <div className="auth-card  avatar-container">
+      <div className="auth-card  fit-content-container">
         <AuthHeader
           heading="Enter Your Phone Number"
           subHeading="Enter your phone number to update it."

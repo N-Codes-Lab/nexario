@@ -31,23 +31,22 @@ export async function POST(req) {
     );
 
     const [alreadyExists] = await db.execute(
-      `SELECT id FROM users WHERE phone = ? LIMIT 1`,
-      [phone]
+      `SELECT id FROM users WHERE phone = ? AND uId = ? LIMIT 1`,
+      [phone, uId]
     );
-    if (phone == "") {
-    } else {
-      if (alreadyExists.length > 0) {
-        return new Response(
-          JSON.stringify({
-            success: false,
-            message: "User with this phone number already exists",
-          }),
-          {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-      }
+
+    if (alreadyExists.length > 0) {
+      console.log("User with this phone number already exists");
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "User with this phone number already exists",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     if (existingUser.length > 0) {

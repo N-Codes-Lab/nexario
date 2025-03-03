@@ -45,8 +45,38 @@ html {
   height: 850px;
 }
 
-.auth-card.avatar-container {
+.auth-card.fit-content-container {
   height: fit-content;
+}
+
+.auth-card .avatar-container {
+  height: 600px; /* Fixed height */
+  overflow-y: auto; /* Enables vertical scrolling */
+  scrollbar-width: thin; /* Optional: makes the scrollbar thinner */
+  scrollbar-color: #346af7 transparent; /* Optional: custom scrollbar color */
+  position: relative !important;
+}
+
+/* Optional: Custom scrollbar for WebKit browsers */
+.auth-card .avatar-container::-webkit-scrollbar {
+  width: 2px;
+}
+
+.auth-card .avatar-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.auth-card .avatar-container::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.auth-card .avatar-container::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
+.avatar-container.auth-form {
+  padding: 1rem 0;
 }
 
 .auth-header h1 {
@@ -84,10 +114,6 @@ html {
 .auth-form {
   width: 100%;
   padding: 1rem 2rem;
-}
-
-.auth-card.normal-container .auth-form {
-  padding: 0rem 2rem;
 }
 
 .auth-form-2 {
@@ -241,7 +267,7 @@ html {
 @media screen and (max-width: 500px) {
   .auth-card {
     width: 90%;
-    height: 775px;
+    height: 820px;
   }
 
   .auth-form,
@@ -274,6 +300,7 @@ html {
   .auth-container {
     background: url("/auth-bg-mobile.svg") no-repeat center center;
     background-size: cover;
+    height: 120vh;
   }
 }
 
@@ -526,8 +553,8 @@ html {
 
 @media screen and (max-width: 550px) {
   .avatar {
-    width: 58px;
-    height: 58px;
+    width: 128px;
+    height: 128px;
   }
 }
 

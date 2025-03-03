@@ -23,6 +23,7 @@ function Page() {
         fetchAvatars(user.uid, setAvatars);
       } else {
         toast.error("Please login to continue.");
+
         router.push("/auth/login");
       }
     });
@@ -89,14 +90,14 @@ function Page() {
   return (
     <div className="auth-container">
       <Toaster />
-      <div className="auth-card avatar-container">
+      <div className="auth-card fit-content-container">
         <AuthHeader
           heading="Choose Your Avatar"
           subHeading="Pick a look that represents you in the Nexario community."
         />
 
-        <div className="auth-form">
-          <div className="flex avatars-container animate__animated animate__fadeInUp">
+        <div className="auth-form avatar-container">
+          <div className="flex  avatars-container animate__animated animate__fadeInUp">
             {avatars.map((avatar) => (
               <div
                 key={avatar.id}
