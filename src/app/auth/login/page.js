@@ -16,10 +16,11 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 function page() {
   const [showPassword, setShowPassword] = useState(false);
   const [loadingButton, setLoadingButton] = useState(null);
-
+  const router = useRouter();
   const [formData, setFormData] = useState({
     phone: "",
     pin: "",

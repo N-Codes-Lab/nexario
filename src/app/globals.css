@@ -45,12 +45,33 @@ html {
   height: 850px;
 }
 
+.auth-form.fixed-btn {
+  position: fixed;
+  bottom: 0;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-form.fixed-btn button {
+  width: 100%;
+}
+@media screen and (max-width: 580px) {
+  .auth-form.fixed-btn button {
+    width: 90%;
+  }
+}
+
 .auth-card.fit-content-container {
   height: fit-content;
 }
 
+.avatars-card {
+  height: 720px;
+}
+
 .auth-card .avatar-container {
-  height: 600px; /* Fixed height */
+  height: 450px; /* Fixed height */
   overflow-y: auto; /* Enables vertical scrolling */
   scrollbar-width: thin; /* Optional: makes the scrollbar thinner */
   scrollbar-color: #346af7 transparent; /* Optional: custom scrollbar color */
@@ -164,6 +185,7 @@ html {
 .auth-form input::placeholder {
   color: var(--white);
   font-size: 0.9rem;
+  opacity: 0.5;
 }
 
 /* Cursor-following border effect */
@@ -270,6 +292,9 @@ html {
     height: 820px;
   }
 
+  .avatars-card {
+    height: 720px;
+  }
   .auth-form,
   .auth-form-2 {
     padding: 1rem 0;

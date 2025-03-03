@@ -90,7 +90,7 @@ function Page() {
   return (
     <div className="auth-container">
       <Toaster />
-      <div className="auth-card fit-content-container">
+      <div className="auth-card  avatars-card">
         <AuthHeader
           heading="Choose Your Avatar"
           subHeading="Pick a look that represents you in the Nexario community."
@@ -132,7 +132,7 @@ function Page() {
             <div className="spinner-blade"></div>
           </div>
         ) : (
-          <div className="auth-form">
+          <div className="auth-form fixed-btn">
             <button
               className={`auth-button animate__animated animate__fadeInUp ${
                 loadingButton ? "disable-button" : ""
